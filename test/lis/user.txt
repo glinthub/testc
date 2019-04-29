@@ -1,0 +1,15 @@
+Thu Feb 24 20:01:48 2005, Instance initiated. ####################
+Thu Feb 24 20:02:09 2005, target captured. [READMEE.txt - Notepad]
+Thu Feb 24 20:02:18 2005, target captured. [READMEE.txt - Notepad]
+Thu Feb 24 20:02:27 2005, target captured. [READMEE.txt - Notepad]
+Thu Feb 24 20:03:09 2005, Instance exited. ####################
+Thu Feb 24 20:03:21 2005, Instance initiated. ####################
+Thu Feb 24 20:03:36 2005, Instance exited. ####################
+Thu Feb 24 20:03:44 2005, Instance initiated. ####################
+Thu Feb 24 20:03:56 2005, target captured. [READMEE.txt - Notepad]
+Thu Feb 24 20:04:05 2005, Instance exited. ####################
+Wed Jul 23 22:28:59 2008, Instance initiated. ####################
+Wed Jul 23 22:35:54 2008, Instance initiated. ####################
+Wed Jul 23 22:36:36 2008, target captured. [READMEE.txt - 记事本]
+Wed Jul 23 22:36:39 2008, target captured. [READMEE.txt - 记事本]
+Wed Jul 23 22:36:42 2008, Instance exited. ####################

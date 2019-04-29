@@ -1,0 +1,26 @@
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    int i = 1;
+    char *filename = NULL;
+    char *cmd = NULL;
+    char *cp;
+    while (i < argc)
+    {
+        if (strcmp(argv[i], "-f") == 0)
+        {
+            i++;
+            filename = argv[i];
+        }
+        if (strcmp(argv[i], "-c") == 0)
+        {
+            i++;
+            cmd = argv[i];
+        }
+        i++;
+    }
+
+    mgnt_client(filename, cmd);
+}
+

@@ -1,0 +1,21 @@
+#CFLAGS += -Dmalloc=UTIL_MALLOC -Dfree=UTIL_FREE
+#CFLAGS += -Dpthread_create=tmp_pthread_create
+
+SRCS=$(wildcard *.c)
+OBJS=$(SRCS:%.c=%.o)
+CFLAGS += -std=gnu99 -g -O0 -I../xl4include -I../libdoip/include -D_XL4_LINUX_OS_ -DXL4_TRACE_OFF
+
+BUILD_DATE=`date +%Y%m%d_%H%M%S`
+CFLAGS += -DBUILD_DATE="\"$(BUILD_DATE)\""
+
+ifeq ($(TARGET), QNX660)
+CC = qcc -V 4.7.3,gcc_ntoarmv7le
+CFLAGS += -D_XL4_QNX_OS_
+LDFLAGS += -L../.. -lm -lsocket
+
+else #linux
+CC = gcc
+CFLAGS += -D_XL4_LINUX_OS_ 
+LDFLAGS += -lpthread -lrt
+endif
+

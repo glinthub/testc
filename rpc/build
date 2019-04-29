@@ -1,0 +1,4 @@
+#!/bin/bash
+
+python rpc-codegen.py rpc_dcm.xml
+make

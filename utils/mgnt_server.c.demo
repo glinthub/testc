@@ -1,0 +1,16 @@
+#include<stdio.h>
+#include<stdint.h>
+
+void receive_handler(int com_fd, uint8_t *buf, uint8_t len) 
+{
+    uint8_t resp[1024];
+    printf("receive: %s\n", buf);
+    sprintf(resp, "server response (echo): %s\n", buf);
+    mgnt_server_send(com_fd, resp, strlen(resp));
+}
+
+int main(){
+    mgnt_server_receiver_register(receive_handler);
+    mgnt_server(NULL);
+}
+

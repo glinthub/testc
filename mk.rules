@@ -1,0 +1,15 @@
+$(SUBDIRS):
+	$(MAKE) -C $@
+
+clean:
+	@$(RM) $(OBJS) $(ALL_OBJS) $(LIB) $(EXE) 
+	@for dir in $(SUBDIRS) $(APP_DIRS); do \
+        $(MAKE) -C $$dir clean; \
+    done
+
+$(LIB): $(OBJS)
+	@$(AR) -r $@ $^
+
+$(EXE): $(OBJS) $(LIBS)
+	$(CC) $(OBJS) $(LIBS) $(LDFLAGS) -o $@
+

@@ -1,0 +1,29 @@
+#CFLAGS += -Dmalloc=UTIL_MALLOC -Dfree=UTIL_FREE
+
+SRCS=$(wildcard *.c)
+OBJS=$(SRCS:%.c=%.o)
+
+BUILD_DATE=`date +%Y%m%d_%H%M%S`
+CFLAGS += -DBUILD_DATE="\"$(BUILD_DATE)\""
+CFLAGS += -g 
+CFLAGS += -std=gnu99
+CFLAGS += -I. -I.. -I../include -I../autosar
+
+ifeq ($(TARGET), QNX660)
+#CC = qcc -V 5.4.0,gcc_ntoaarch64le
+CC = qcc -V 4.7.3,gcc_ntoarmv7le
+CFLAGS += -DXL4_TARGET_OS_QNX
+LDFLAGS += -L../.. -lm -lsocket
+else #linux
+CC = gcc
+CFLAGS += -DXL4_TARGET_OS_LINUX
+LDFLAGS += -lpthread -lrt
+endif
+
+ifeq ($(OEM),VISTEON)
+CFLAGS += -DOEM_VISTEON
+CFLAGS += -DDOIP_PAYLOAD_SIZE=16398
+else
+CFLAGS += -DDOIP_PAYLOAD_SIZE=40960
+endif
+
