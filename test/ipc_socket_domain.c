@@ -27,11 +27,11 @@ int test_server() {
 
     //bind is optional for SOCK_DGRAM
     ret = bind(sock, (struct sockaddr *)&sa, sizeof(struct sockaddr_un));
-    CHECK_ERR(ret, 0, exit(1));
+    EXIT_ON_ERR(ret==0);
 
     //listen is not for SOCK_DGRAM
     //ret = listen(sock, 1);
-    CHECK_ERR(ret, 0, exit(1));
+    EXIT_ON_ERR(ret==0);
 
     while (1)
     {
@@ -40,7 +40,7 @@ int test_server() {
 
         //accept is not for SOCK_DGRAM
         //ret = accept(sock, (struct sockaddr *)&sa_in, &len);
-        CHECK_ERR(ret, 0, exit(1));
+        EXIT_ON_ERR(ret==0);
 
         char buf[128];
         while (1)
@@ -74,7 +74,7 @@ int test_client()
 
     //bind is optional for SOCK_DGRAM
     ret = bind(sock, (struct sockaddr *)&sa, sizeof(struct sockaddr_un));
-    CHECK_ERR(ret, 0, exit(1));
+    EXIT_ON_ERR(ret==0);
 
     socklen_t len = sizeof(struct sockaddr_un);
 

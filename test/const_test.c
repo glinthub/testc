@@ -2,16 +2,21 @@
 
 int main(int argc, char *argv[])
 {
-    const int ci = 0;
-    int const ic = 0;
+    const int ci = 1;
+    int const ic = 2;
     //ci ++; error
     //ic ++; error
+
     int *pi;
     pi = &ci;
     (*pi) ++;
     pi = &ic;
     (*pi) ++;
     pi++;
+    printf("ci=%d, ic=%d\n", ci, ic);
+
+    int * const p1 = &ci;
+    //p1++; //error
 
     const int* p2;
     p2++;
@@ -21,6 +26,10 @@ int main(int argc, char *argv[])
     p3++;
     //(*p3)++; error
     (**p3)++;
-    printf("ci = %d, ic = %d\n", ci, ic);
+
+    const int * const p4 = &ic;
+    //p4++;     //error
+    //(*p4)++;  //error
+
     return 0;
 }
