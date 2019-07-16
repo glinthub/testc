@@ -3,6 +3,7 @@
 #include <unistd.h>
 
 using namespace std;
+#define HERE cout << __LINE__ << endl
 
 void test1()
 {
@@ -82,38 +83,52 @@ class C4 {
 public:
     int m_i;
     C4() {cout << "construct " << this << endl; }
-    C4 &operator= (const C4 & o)        
-    {
-        cout << "operator= &" << endl;
-        return *this;
-    }
-#if 1
-    C4 &operator= (const C4 && o)
-    {
-        cout << "operator= &&" << endl;
-        return *this;
-    }
-#endif
 
-#if 1
-    C4(const C4& o)
+    C4(C4& o)
     {
         cout << "constructor C4(const C4 &)" << endl; 
     }
-    C4(const C4&& o)
+
+    C4 &operator= (C4 & o)        
+    {
+        cout << "operator= & " << &o << endl;
+        return *this;
+    }
+
+#if 0
+    C4(C4&& o)
     {
         cout << "constructor C4(const C4 &&)" << endl; 
     }
+
+    C4 &operator= (C4 && o)
+    {
+        cout << "operator= && " << &o << endl;
+        return *this;
+    }
 #endif
     ~C4() {cout << "destroy " << this << endl;}
-        
 };
+
+int f4(int &i) {i++; return 0;}
 void test4()
 {
     cout << "------------ test 4: rvalue ref --------------- " << endl;
     C4 a;
     a = C4();       //operator= &&, or operator= &
-    C4 b = C4();    //default  C4(const C4 &), which will not be there is move constructor/operator= is defined.
+    C4 b = C4();    //default  C4(const C4 &), which will not be there if move constructor/operator= is defined.
+    cout << &b << endl;
+    HERE;
+
+    a = move(b);    //operator= &&, or operator= &
+    HERE;
+
+    C4 c(b);        //C4(const C4&)
+    C4 d(move(b));  //C4(const C4&&) (if defined), or C4(const C4&)
+
+    int i = 3;
+    f4(i);
+    cout << i << endl;
 }
 
 int main(int argc, char *argv[])
@@ -126,3 +141,4 @@ int main(int argc, char *argv[])
     test4();
     return 0;
 }
+

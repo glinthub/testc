@@ -3,32 +3,22 @@
 
 using namespace std;
 
-class A
-{
-public:
-    A()
-    {
-        cout << "A()" << endl;
-    }
-    A(const A&)
-    {
-        cout << "A(const A&)" << endl;
-    }
-
-
-};
-
-A Get()
-{
-    cout << "Get begin" << endl;
-    A tmp;
-    cout << "Get end" << endl;
-    return tmp;
-}
-
 int main()
 {
-    A v = Get();
+    int i = 0;
+    int j = i;
+    int &k = i;
+    //    int &m = 3;   //error!
+    const int &n = 3;   //pass! const lvalue could be assigned with a rvalue. while non-const lvalue could not.
+    int &p = k;
+
+    k = 100;
+    cout << i << endl;
+    cout << &i << endl;
+    cout << &j << endl;
+    cout << &k << endl;
+    cout << &n << endl;
+    cout << &p << endl;
 
     return 0;
 }
