@@ -86,19 +86,19 @@ public:
 
     C4(C4& o)
     {
-        cout << "constructor C4(const C4 &)" << endl; 
+        cout << "constructor C4(C4 &)" << endl; 
     }
 
     C4 &operator= (C4 & o)        
     {
-        cout << "operator= & " << &o << endl;
+        cout << this << "operator= & " << &o << endl;
         return *this;
     }
 
-#if 0
+#if 1
     C4(C4&& o)
     {
-        cout << "constructor C4(const C4 &&)" << endl; 
+        cout << "constructor C4(C4 &&)" << endl; 
     }
 
     C4 &operator= (C4 && o)
@@ -110,25 +110,24 @@ public:
     ~C4() {cout << "destroy " << this << endl;}
 };
 
-int f4(int &i) {i++; return 0;}
 void test4()
 {
     cout << "------------ test 4: rvalue ref --------------- " << endl;
-    C4 a;
-    a = C4();       //operator= &&, or operator= &
-    C4 b = C4();    //default  C4(const C4 &), which will not be there if move constructor/operator= is defined.
-    cout << &b << endl;
+    C4 a;           //constructor
     HERE;
-
+    a = C4();       //constructor, operator= &&, destructor
+    HERE;
+    C4 b = C4();    //constructor
+    HERE;
+    C4 &&c = C4();  //constructor
+    HERE;
     a = move(b);    //operator= &&, or operator= &
     HERE;
+    C4 d(b);        //C4(const C4&)
+    HERE;
+    C4 e(move(b));  //C4(const C4&&) (if defined), or C4(const C4&)
+    HERE;
 
-    C4 c(b);        //C4(const C4&)
-    C4 d(move(b));  //C4(const C4&&) (if defined), or C4(const C4&)
-
-    int i = 3;
-    f4(i);
-    cout << i << endl;
 }
 
 int main(int argc, char *argv[])

@@ -2,6 +2,16 @@
 #include <memory>
 
 using namespace std;
+#define HERE cout << __LINE__ << endl
+
+class A {
+public:
+    A() {cout << "constructor" << this << endl;}
+    ~A() {cout << "destructor" << this << endl;}
+
+    A(A& a) {cout << "copy constructor" << this << endl;}
+    A(const A& a) {cout << "const copy constructor" << this << endl;}
+};
 
 int main()
 {
@@ -20,6 +30,10 @@ int main()
     cout << &n << endl;
     cout << &p << endl;
 
+    HERE;
+    A a = A();
+    HERE;
+    a = A();
     return 0;
 }
 
